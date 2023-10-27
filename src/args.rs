@@ -6,6 +6,6 @@ pub fn args_fn(value: &str) {
     println!("Hello, {}", value);
     if !value.contains("World!!") {
         // https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-types
-        loops::loop_fn(0)
+        loops::for_loop(0)
     }
 }
