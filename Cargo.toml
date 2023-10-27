@@ -12,5 +12,9 @@ path = "src/binaries/main.rs"
 name = "format"
 path = "src/format/specifiers.rs"
 
+[[bin]]
+name = "fileio"
+path = "src/fileio/main.rs"
+
 [dependencies]
 chrono = "0.4.31"
