@@ -1,0 +1,9 @@
+# https://doc.rust-lang.org/cargo/getting-started/first-steps.html#first-steps-with-cargo
+[package]
+name = "rust-tutorials"
+version = "0.0.0"
+
+# https://doc.rust-lang.org/cargo/reference/cargo-targets.html#configuring-a-target
+[[bin]]
+name = "hello-world"
+path = "src/basics.rs"
