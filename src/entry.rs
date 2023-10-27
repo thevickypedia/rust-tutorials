@@ -1,9 +1,8 @@
-mod args;
-mod loops;
-
 use std::env;
 
-fn main() {
+use args;
+
+pub fn entrypoint() {
     let arguments: Vec<String> = env::args().collect();
     let arg_count = arguments.len();
     println!("{}", arg_count);
