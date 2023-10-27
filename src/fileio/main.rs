@@ -17,14 +17,15 @@ fn main() {
         println!("FileName is required!!");
         exit(1);
     }
-    println!("{:?}", arguments);
     let filename = arguments.last().unwrap().to_string();
-    match read_file(filename) {
+    // Use clone since value of filename cannot be borrowed after move
+    match read_file(filename.clone()) {
         Ok(contents) => {
-            println!("{}", contents);
+            let liner = "-".repeat(80);
+            println!("{}\n{}\n{}", liner, contents, liner);
         }
         Err(error) => {
-            eprintln!("Error reading file: {}", error);
+            eprintln!("\nError reading file '{}'\n\t{}", filename, error);
         }
     }
 }
