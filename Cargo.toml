@@ -5,8 +5,12 @@ version = "0.0.0"
 
 # https://doc.rust-lang.org/cargo/reference/cargo-targets.html#configuring-a-target
 [[bin]]
-name = "rest-tutorials"
-path = "src/main.rs"
+name = "basics"
+path = "src/binaries/main.rs"
+
+[[bin]]
+name = "format"
+path = "src/format/specifiers.rs"
 
 [dependencies]
 chrono = "0.4.31"
