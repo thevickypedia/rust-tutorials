@@ -15,6 +15,10 @@ fn read_file(filename: String) -> Result<String, io::Error> {
 fn main() {
     let arguments: Vec<String> = env::args().collect();
     let filename = arguments.last().unwrap().to_string();
+    if filename.starts_with("target") {
+        println!("Requires a filename as argument!!");
+        exit(1);
+    }
     let file_object = Path::new(&filename);
     if !file_object.exists() {
         println!("{} doesn't exist", filename);
