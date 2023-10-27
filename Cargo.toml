@@ -5,5 +5,5 @@ version = "0.0.0"
 
 # https://doc.rust-lang.org/cargo/reference/cargo-targets.html#configuring-a-target
 [[bin]]
-name = "hello-world"
+name = "rest-tutorials"
 path = "src/basics.rs"
