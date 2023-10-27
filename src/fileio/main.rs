@@ -2,6 +2,7 @@ use std::env;
 use std::fs::File;
 use std::io;
 use std::io::Read;
+use std::path::Path;
 use std::process::exit;
 
 fn read_file(filename: String) -> Result<String, io::Error> {
@@ -13,11 +14,16 @@ fn read_file(filename: String) -> Result<String, io::Error> {
 
 fn main() {
     let arguments: Vec<String> = env::args().collect();
-    if arguments.len() == 1 {
-        println!("FileName is required!!");
-        exit(1);
-    }
     let filename = arguments.last().unwrap().to_string();
+    let file_object = Path::new(&filename);
+    if !file_object.exists() {
+        println!("{} doesn't exist", filename);
+        exit(1)
+    }
+    if !file_object.is_file() {
+        println!("{} is not a file", filename);
+        exit(1)
+    }
     // Use clone since value of filename cannot be borrowed after move
     match read_file(filename.clone()) {
         Ok(contents) => {
