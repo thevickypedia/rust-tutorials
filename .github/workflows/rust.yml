@@ -4,6 +4,7 @@ on:
   push:
     branches: [ "main" ]
 
+# https://doc.rust-lang.org/cargo/reference/environment-variables.html
 env:
   CARGO_TERM_COLOR: always
 
