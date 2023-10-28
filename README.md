@@ -43,7 +43,7 @@ cargo run --bin read-file README.md
 
 #### Write File
 ```shell
-cargo run --bin write-file hello.txt
+cargo run --bin write-file sample 'this will be printed on line 1' 'this will be on line2' line3 line4
 ```
 
 ### HTTP Requests
