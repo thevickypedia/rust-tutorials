@@ -13,6 +13,11 @@ name = "format"
 path = "src/basics/format/specifiers.rs"
 
 [[bin]]
+name = "ds"
+path = "src/basics/datastructures/main.rs"
+
+# FileIO
+[[bin]]
 name = "read-file"
 path = "src/executors/fileio/read.rs"
 
@@ -20,10 +25,7 @@ path = "src/executors/fileio/read.rs"
 name = "write-file"
 path = "src/executors/fileio/write.rs"
 
-[[bin]]
-name = "ds"
-path = "src/basics/datastructures/main.rs"
-
+# HTTP Requests
 [[bin]]
 name = "get"
 path = "src/executors/requests/get.rs"

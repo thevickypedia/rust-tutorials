@@ -5,10 +5,11 @@ use std::io::Write;
 use std::path::Path;
 use std::process::exit;
 
-fn write_file(filename: &str, data: &str) -> Result<(), io::Error> {
+fn write_file(filename: &str, data: &str) -> Result<usize, io::Error> {
     let mut file = File::create(filename)?;
-    file.write_all(data.as_bytes())?;
-    Ok(())
+    // write_all is safer but it returns an empty tuple () instead of usize
+    let bytes = file.write(data.as_bytes())?;
+    Ok(bytes)
 }
 
 fn main() {
@@ -40,7 +41,7 @@ fn main() {
         data = "hello-world".to_string();
     }
     match write_file(filename, &data) {
-        Ok(_) => println!("Data written to {}", filename),
+        Ok(bytes) => println!("{:?} bytes written to {}", bytes, filename),
         Err(err) => eprintln!("Error: {}", err),
     }
 }
