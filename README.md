@@ -21,7 +21,7 @@ cargo build
 
 #### Binaries
 ```shell
-cargo run --bin basics <Name>
+cargo run --bin basics Vignesh
 ```
 
 #### Data Structures
@@ -31,7 +31,7 @@ cargo run --bin ds
 
 #### FileIO
 ```shell
-cargo run --bin fileio <Filename>
+cargo run --bin fileio README.md
 ```
 
 #### Format Specifiers
@@ -43,7 +43,7 @@ cargo run --bin format
 
 #### GET
 ```shell
-cargo run --bin get <URL>
+cargo run --bin get https://jarvis.vigneshrao.com/health
 ```
 
 ## Uninstall Rust
