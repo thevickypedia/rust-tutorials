@@ -30,6 +30,14 @@ path = "src/executors/fileio/write.rs"
 name = "get"
 path = "src/executors/requests/get.rs"
 
+[[bin]]
+name = "secure"
+path = "src/executors/requests/secure.rs"
+
+[[bin]]
+name = "offline"
+path = "src/executors/requests/offline.rs"
+
 [dependencies]
 chrono = "0.4.31"
 reqwest = { version = "0.11.22", features = ["blocking"] }

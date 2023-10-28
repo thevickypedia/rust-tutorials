@@ -1,20 +1,16 @@
-mod parser;
-
 extern crate reqwest;
 
 use std::env;
-use std::process::exit;
 
 fn main() {
     // if not blocking, method should be awaited 'reqwest.await.is_ok'
     let arguments: Vec<String> = env::args().collect();
-    let request_url = &arguments.last().unwrap().to_string();
-    if parser::parse_url(request_url) {
-        println!("URL OK: {}", request_url);
-    } else {
-        exit(1)
-    }
-    let resp = reqwest::blocking::get(request_url);
+    let token = arguments.last().unwrap().to_string();
+    let client = reqwest::blocking::Client::new();
+    let resp = client
+        .post("https://jarvis.vigneshrao.com/secure-send")
+        .header("access-token", token)
+        .send();
     if resp.is_ok() {
         if let Ok(text) = resp.unwrap().text() {
             println!("{}", text.as_str());
