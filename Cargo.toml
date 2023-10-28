@@ -16,5 +16,9 @@ path = "src/format/specifiers.rs"
 name = "fileio"
 path = "src/fileio/main.rs"
 
+[[bin]]
+name = "ds"
+path = "src/datastructures/main.rs"
+
 [dependencies]
 chrono = "0.4.31"
