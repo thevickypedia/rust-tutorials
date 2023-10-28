@@ -25,10 +25,15 @@ path = "src/executors/fileio/read.rs"
 name = "write-file"
 path = "src/executors/fileio/write.rs"
 
+# HTTP Sample Requests
+[[bin]]
+name = "get-url"
+path = "src/executors/requests/get_url.rs"
+
 # HTTP Requests
 [[bin]]
-name = "get"
-path = "src/executors/requests/get.rs"
+name = "health"
+path = "src/executors/requests/health.rs"
 
 [[bin]]
 name = "secure"
