@@ -14,7 +14,8 @@ fn write_file(filename: &str, data: &str) -> Result<(), io::Error> {
 fn main() {
     let arguments: Vec<String> = env::args().collect();
     if arguments.len() < 2 {
-        println!("ERROR:\n\tNo filename received.\n\tUsage: {} <filename>", arguments[0]);
+        println!("ERROR:\n\tNo filename received.\n\tRefer {} for instructions",
+                 "https://github.com/thevickypedia/rust-tutorials#write-file");
         exit(1);
     }
     let filename = &arguments[1];

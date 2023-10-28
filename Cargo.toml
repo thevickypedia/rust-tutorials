@@ -6,27 +6,27 @@ version = "0.0.0"
 # https://doc.rust-lang.org/cargo/reference/cargo-targets.html#configuring-a-target
 [[bin]]
 name = "basics"
-path = "src/binaries/main.rs"
+path = "src/basics/binaries/main.rs"
 
 [[bin]]
 name = "format"
-path = "src/format/specifiers.rs"
+path = "src/basics/format/specifiers.rs"
 
 [[bin]]
 name = "read-file"
-path = "src/fileio/read.rs"
+path = "src/executors/fileio/read.rs"
 
 [[bin]]
 name = "write-file"
-path = "src/fileio/write.rs"
+path = "src/executors/fileio/write.rs"
 
 [[bin]]
 name = "ds"
-path = "src/datastructures/main.rs"
+path = "src/basics/datastructures/main.rs"
 
 [[bin]]
 name = "get"
-path = "src/requests/get.rs"
+path = "src/executors/requests/get.rs"
 
 [dependencies]
 chrono = "0.4.31"
