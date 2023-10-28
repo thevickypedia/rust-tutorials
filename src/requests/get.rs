@@ -1,8 +1,15 @@
 extern crate reqwest;
 
+use reqwest::Url;
+
 fn main() {
     // if not blocking, method should be awaited 'reqwest.await.is_ok'
-    let resp = reqwest::blocking::get("https://vigneshrao.com");
+    let request_url = "https://vigneshrao.com";
+    if let Ok(url) = Url::parse(request_url) {
+        println!("URL OK");
+        println!("{}", url.as_str());
+    }
+    let resp = reqwest::blocking::get(request_url);
     if resp.is_ok() {
         println!("success!");
         if let Ok(text) = resp.unwrap().text() {
