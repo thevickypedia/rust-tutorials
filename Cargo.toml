@@ -13,8 +13,12 @@ name = "format"
 path = "src/format/specifiers.rs"
 
 [[bin]]
-name = "fileio"
-path = "src/fileio/main.rs"
+name = "read-file"
+path = "src/fileio/read.rs"
+
+[[bin]]
+name = "write-file"
+path = "src/fileio/write.rs"
 
 [[bin]]
 name = "ds"

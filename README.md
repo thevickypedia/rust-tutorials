@@ -29,14 +29,21 @@ cargo run --bin basics Vignesh
 cargo run --bin ds
 ```
 
-#### FileIO
-```shell
-cargo run --bin fileio README.md
-```
-
 #### Format Specifiers
 ```shell
 cargo run --bin format
+```
+
+### FileIO
+
+#### Read File
+```shell
+cargo run --bin read-file README.md
+```
+
+#### Write File
+```shell
+cargo run --bin write-file hello.txt
 ```
 
 ### HTTP Requests

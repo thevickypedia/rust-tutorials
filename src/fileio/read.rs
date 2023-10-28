@@ -15,17 +15,13 @@ fn read_file(filename: String) -> Result<String, io::Error> {
 fn main() {
     let arguments: Vec<String> = env::args().collect();
     let filename = arguments.last().unwrap().to_string();
-    if filename.starts_with("target") {
-        println!("Requires a filename as argument!!");
-        exit(1);
-    }
     let file_object = Path::new(&filename);
     if !file_object.exists() {
-        println!("{} doesn't exist", filename);
+        println!("ERROR:\n\tFile '{}' doesn't exist", filename);
         exit(1)
     }
     if !file_object.is_file() {
-        println!("{} is not a file", filename);
+        println!("ERROR:\n\t'{}' is not a file", filename);
         exit(1)
     }
     // Use clone since value of filename cannot be borrowed after move
@@ -35,7 +31,7 @@ fn main() {
             println!("{}\n{}\n{}", liner, contents, liner);
         }
         Err(error) => {
-            eprintln!("\nError reading file '{}'\n\t{}", filename, error);
+            eprintln!("ERROR:\n\tFailed to read file '{}'\n\t{}", filename, error);
         }
     }
 }
