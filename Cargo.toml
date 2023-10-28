@@ -20,5 +20,10 @@ path = "src/fileio/main.rs"
 name = "ds"
 path = "src/datastructures/main.rs"
 
+[[bin]]
+name = "get"
+path = "src/requests/get.rs"
+
 [dependencies]
 chrono = "0.4.31"
+reqwest = { version = "0.11.22", features = ["blocking"] }
