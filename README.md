@@ -50,7 +50,24 @@ cargo run --bin write-file sample 'this will be printed on line 1' 'this will be
 
 #### GET
 ```shell
-cargo run --bin get https://jarvis.vigneshrao.com/health
+cargo run --bin get-url https://vigneshrao.com/sample
+```
+
+### HTTP Requests - Jarvis
+#### Health
+```shell
+cargo run --bin health
+```
+
+#### Secure
+```shell
+cargo run --bin secure <TOKEN>
+```
+
+#### Offline
+```shell
+export token=<TOKEN>
+cargo run --bin offline 'turn off bedroom lights'
 ```
 
 ## Uninstall Rust
