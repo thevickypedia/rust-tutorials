@@ -48,6 +48,17 @@ path = "src/executors/requests/secure.rs"
 name = "offline"
 path = "src/executors/requests/offline.rs"
 
+# Run Commands
+[[bin]]
+name = "none"
+path = "src/none_shall_pass.rs"
+
+[[bin]]
+name = "none-thread"
+path = "src/none_shall_pass_thread.rs"
+
 [dependencies]
 chrono = "0.4.31"
 reqwest = { version = "0.11.22", features = ["blocking"] }
+regex = "1.10.2"
+glob = "0.3"
