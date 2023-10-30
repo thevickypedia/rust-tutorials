@@ -5,6 +5,7 @@ use std::env;
 use std::fs::File;
 use std::io;
 use std::io::Read;
+use std::path::Path;
 use std::process::Command;
 use std::thread;
 use std::time::Instant;
@@ -73,12 +74,13 @@ fn verify_url(hyperlink: (String, String)) {
     // }
 }
 
-fn runner(filename: &str) {
+fn runner(filename: &str) -> bool {
+    let mut fail = false;
     let text = match read_file(filename) {
         Ok(content) => content,
         Err(error) => {
             eprintln!("{}", error);
-            return;
+            return false;  // return instead of setting flag
         }
     };
     let text = text.to_string();
@@ -97,8 +99,11 @@ fn runner(filename: &str) {
         }
     }
     for handle in threads {
-        handle.join().expect("Thread panicked");
+        if let Err(_) = handle.join() {
+            fail = true;
+        }
     }
+    return fail;
 }
 
 fn main() {
@@ -106,8 +111,15 @@ fn main() {
     let arguments: Vec<String> = env::args().collect();
     let owner = &arguments[1];
     let repo = &arguments[2];
-    let command = format!("git clone https://github.com/{}/{}.wiki.git", owner, repo);
-    run_git_cmd(command.as_str());
+    let wiki_path = format!("{}.wiki", repo);
+    let command = format!("git clone https://github.com/{}/{}.git", owner, wiki_path);
+    let mut _set_exit_code = false;
+    if run_git_cmd(command.as_str()) {
+        let path = Path::new(wiki_path.as_str());
+        if !path.exists() {
+            _set_exit_code = true;
+        }
+    }
     for md_file in md_files() {
         runner(&md_file);
     }
