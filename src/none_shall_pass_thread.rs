@@ -2,17 +2,17 @@ extern crate glob;
 extern crate regex;
 
 use std::env;
-use std::thread;
 use std::fs::File;
 use std::io;
 use std::io::Read;
 use std::process::Command;
+use std::thread;
 use std::time::Instant;
 
 use glob::glob;
 use regex::Regex;
 
-fn read_file(filename: String) -> Result<String, io::Error> {
+fn read_file(filename: &str) -> Result<String, io::Error> {
     let mut file = File::open(filename)?;
     let mut content = String::new();
     file.read_to_string(&mut content)?;
@@ -57,12 +57,13 @@ fn run_git_cmd(command: &str) -> bool {
     }
 }
 
-fn verify_url(hyperlink: (&str, &str)) {
-    let (text, url) = hyperlink;
-    let resp = reqwest::blocking::get(url);
+fn verify_url(hyperlink: (String, String)) {
+    let (text, url) = hyperlink;  // type string which doesn't implement `Copy` trait
+    let resp = reqwest::blocking::get(url.clone());  // since value is moved
     if resp.is_ok() {
         return;
     }
+    // without clone value will be borrowed after move
     println!("'{}' - '{}' failed to resolve", text, url);
     // todo: this should happen only when debug is enabled
     // if resp.is_err() {
@@ -72,7 +73,7 @@ fn verify_url(hyperlink: (&str, &str)) {
     // }
 }
 
-fn runner(filename: String) {
+fn runner(filename: &str) {
     let text = match read_file(filename) {
         Ok(content) => content,
         Err(error) => {
@@ -80,14 +81,23 @@ fn runner(filename: String) {
             return;
         }
     };
+    let text = text.to_string();
+    let mut threads = Vec::new();
     for pattern in get_patterns() {
         let regex = Regex::new(pattern).expect("Failed to compile regex");
         for capture in regex.captures_iter(&text) {
             if let (Some(name), Some(url)) = (capture.get(1), capture.get(2)) {
-                // println!("[{}] {}", name.as_str(), url.as_str());
-                verify_url((name.as_str(), url.as_str()))
+                let name = name.as_str().to_string();
+                let url = url.as_str().to_string();
+                let handle = thread::spawn(move || {
+                    verify_url((name, url))
+                });
+                threads.push(handle);
             }
         }
+    }
+    for handle in threads {
+        handle.join().expect("Thread panicked");
     }
 }
 
@@ -98,15 +108,8 @@ fn main() {
     let repo = &arguments[2];
     let command = format!("git clone https://github.com/{}/{}.wiki.git", owner, repo);
     run_git_cmd(command.as_str());
-    let mut threads = Vec::new();
     for md_file in md_files() {
-        let handle = thread::spawn(move || {
-            runner(md_file)
-        });
-        threads.push(handle);
-    }
-    for handle in threads {
-        handle.join().expect("Thread panicked");
+        runner(&md_file);
     }
     let elapsed = start.elapsed();
     println!("{}", elapsed.as_secs())
