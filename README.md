@@ -34,6 +34,11 @@ cargo run --bin ds
 cargo run --bin format
 ```
 
+#### Run terminal command
+```shell
+cargo run --bin command 'git log'
+```
+
 ### FileIO
 
 #### Read File

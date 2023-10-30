@@ -16,6 +16,11 @@ path = "src/basics/format/specifiers.rs"
 name = "ds"
 path = "src/basics/datastructures/main.rs"
 
+# Run Commands
+[[bin]]
+name = "command"
+path = "src/basics/command/main.rs"
+
 # FileIO
 [[bin]]
 name = "read-file"
