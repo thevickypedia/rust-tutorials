@@ -6,7 +6,7 @@ use std::fs::File;
 use std::io;
 use std::io::Read;
 use std::path::Path;
-use std::process::Command;
+use std::process::{Command, exit};
 use std::thread;
 use std::time::Instant;
 
@@ -66,6 +66,8 @@ fn verify_url(hyperlink: (String, String)) {
     }
     // without clone value will be borrowed after move
     println!("'{}' - '{}' failed to resolve", text, url);
+    println!("Setting exit code to 1");
+    env::set_var("exit_code", "1");
     // todo: this should happen only when debug is enabled
     // if resp.is_err() {
     //     println!("{:?}", resp.err());
@@ -106,6 +108,14 @@ fn runner(filename: &str) -> bool {
     return fail;
 }
 
+fn get_exit_code() -> i32 {
+    let s = env::var("exit_code").unwrap_or("0".to_string());
+    match s.parse::<i32>() {
+        Ok(num) => num,
+        Err(_) => 0,
+    }
+}
+
 fn main() {
     let start = Instant::now();
     let arguments: Vec<String> = env::args().collect();
@@ -113,16 +123,17 @@ fn main() {
     let repo = &arguments[2];
     let wiki_path = format!("{}.wiki", repo);
     let command = format!("git clone https://github.com/{}/{}.git", owner, wiki_path);
-    let mut _set_exit_code = false;
     if run_git_cmd(command.as_str()) {
         let path = Path::new(wiki_path.as_str());
         if !path.exists() {
-            _set_exit_code = true;
+            println!("Setting exit code to 1");
+            env::set_var("exit_code", "1");
         }
     }
     for md_file in md_files() {
         runner(&md_file);
     }
     let elapsed = start.elapsed();
-    println!("{}", elapsed.as_secs())
+    println!("Run time: {}s", elapsed.as_secs());
+    exit(get_exit_code());
 }
