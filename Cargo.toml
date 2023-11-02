@@ -30,6 +30,11 @@ path = "src/executors/fileio/read.rs"
 name = "write-file"
 path = "src/executors/fileio/write.rs"
 
+# Thread Counter
+[[bin]]
+name = "count"
+path = "src/count/counter.rs"
+
 # HTTP Sample Requests
 [[bin]]
 name = "get-url"
