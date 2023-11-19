@@ -66,6 +66,10 @@ path = "src/none_shall_pass_thread.rs"
 name = "enum"
 path = "src/wrapper/enum.rs"
 
+[[bin]]
+name = "struct"
+path = "src/wrapper/struct.rs"
+
 [dependencies]
 chrono = "0.4.31"
 reqwest = { version = "0.11.22", features = ["blocking"] }
