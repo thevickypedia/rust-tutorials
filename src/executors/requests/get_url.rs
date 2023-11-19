@@ -1,9 +1,9 @@
-mod parser;
-
 extern crate reqwest;
 
 use std::env;
 use std::process::exit;
+
+mod parser;
 
 fn main() {
     // if not blocking, method should be awaited 'reqwest.await.is_ok'
@@ -15,15 +15,18 @@ fn main() {
         exit(1)
     }
     let resp = reqwest::blocking::get(request_url);
-    if resp.is_ok() {
-        if let Ok(text) = resp.unwrap().text() {
-            println!("{}", text.as_str());
-        } else {
-            println!("Failed to read response text");
+    match resp {
+        Ok(ok) => {
+            let status = ok.status();
+            if status.as_u16() < 400 {
+                println!("{:?}", ok.text());
+            } else {
+                println!("{}", ok.status())
+            }
         }
-    } else if resp.is_err() {
-        println!("{:?}", resp.err());
-    } else {
-        println!("{:?}", resp.unwrap().error_for_status());
+        Err(err) => {
+            println!("ERROR!!!");
+            println!("{}", err.to_string())
+        }
     }
 }
