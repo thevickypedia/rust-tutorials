@@ -70,6 +70,10 @@ path = "src/wrapper/enum.rs"
 name = "struct"
 path = "src/wrapper/struct.rs"
 
+# Alternative is to install pkg-config and libssl-dev
+[target.'cfg(unix)'.dependencies]
+openssl = { version = "0.10", features = ["vendored"] }
+
 [dependencies]
 chrono = "0.4.31"
 reqwest = { version = "0.11.22", features = ["blocking"] }
