@@ -70,9 +70,13 @@ path = "src/wrapper/enum.rs"
 name = "struct"
 path = "src/wrapper/struct.rs"
 
+[[bin]]
+name = "whatismyipaddress"
+path = "src/ipaddr.rs"
+
 # Alternative is to install pkg-config and libssl-dev
-[target.'cfg(unix)'.dependencies]
-openssl = { version = "0.10", features = ["vendored"] }
+#[target.'cfg(unix)'.dependencies]
+#openssl = { version = "0.10", features = ["vendored"] }
 
 [dependencies]
 chrono = "0.4.31"
